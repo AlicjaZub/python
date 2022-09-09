@@ -1,7 +1,7 @@
 from turtle import Turtle
 
 ALIGNMENT = 'center'
-FONT = ('Arial', 16, 'normal')
+FONT = ('Arial', 40, 'normal')
 
 class Score(Turtle):
   
@@ -15,8 +15,6 @@ class Score(Turtle):
     self.goto(0, 270)
     self.board()
     
-    
-    
   def cal_score(self, player):
     if player == "left":
       self.score_r += 1
@@ -26,15 +24,16 @@ class Score(Turtle):
 
   def board(self):
     self.clear()
-    self.goto(-200, 270)
-    self.write(f"SCORE: {self.score_l}", False, align='center', font=FONT)
-    self.goto(200, 270)
-    self.write(f"SCORE: {self.score_r}", False, align='center', font=FONT)
+    self.goto(-200, 250)
+    self.write(f"{self.score_l}", False, align=ALIGNMENT, font=FONT)
+    self.goto(200, 250)
+    self.write(f"{self.score_r}", False, align=ALIGNMENT, font=FONT)
 
   def game_over(self):
     self.goto(0, 0)
     self.pensize(10)
     if self.score_l > self.score_r:
-      self.write(f"PLAYER ONE HAS WON", False, align=ALIGNMENT, font=FONT)
+      winner = 'ONE'
     else:
-      self.write(f"PLAYER TWO HAS WON", False, align=ALIGNMENT, font=FONT)
+      winner = 'TWO'
+    self.write(f"PLAYER {winner} HAS WON", False, align=ALIGNMENT, font=FONT)

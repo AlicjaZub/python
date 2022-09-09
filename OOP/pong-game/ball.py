@@ -12,8 +12,6 @@ class Ball(Turtle):
     self.y_move = 1
     
   def move(self):
-    # print(self.ycor())
-    # if 390 > self.xcor() > -390 and 290 > self.ycor() > -290:
     new_x = self.xcor() + self.x_move
     new_y = self.ycor() - self.y_move
     self.goto(new_x, new_y)

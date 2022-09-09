@@ -15,6 +15,7 @@ score = ScoreBoard()
 
 game_on = True
 
+screen.listen()
 screen.onkey(snake.move_up, "Up")
 screen.onkey(snake.move_down, "Down")
 screen.onkey(snake.turn_right, "Right")
@@ -23,7 +24,6 @@ screen.onkey(snake.turn_left, "Left")
 while game_on:
   screen.update()
   time.sleep(0.1)
-  screen.listen()
   snake.move()
 
   if snake.head.distance(food) < 15:

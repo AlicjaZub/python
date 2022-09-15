@@ -49,3 +49,10 @@ class Snake:
     cube.color('white')
     cube.goto(x, y)
     self.snake.append(cube)
+
+  def reset(self):
+    for cube in self.snake:
+      cube.goto(800,800)
+    self.snake.clear()
+    self.create()
+    self.head = self.snake[0]

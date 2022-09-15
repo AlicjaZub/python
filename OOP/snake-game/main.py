@@ -32,12 +32,12 @@ while game_on:
     snake.add_cube(snake.tail.xcor(),snake.tail.ycor())
     
   if snake.head.xcor() > 285 or snake.head.ycor() > 300 or snake.head.xcor() < -300 or snake.head.ycor() < -285:
-    score.game_over()
-    game_on = False
+    score.reset()
+    snake.reset()
 
   for cube in snake.snake[1:]:
     if snake.head.distance(cube) < 15:
-      score.game_over()
-      game_on = False
+      score.reset()
+      snake.reset()
       
 screen.exitonclick()

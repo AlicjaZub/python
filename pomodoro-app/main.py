@@ -84,11 +84,11 @@ canvas.create_image(100, 112, image=tomato)
 timer_text = canvas.create_text(100, 130, text="25:00", fill="white", font=(FONT_NAME, 35, "bold"))
 canvas.grid(column=1, row=1)
 
-start = Button(text="Start", highlightbackground=YELLOW, command=start_countdown)
-start.grid(column=0, row=2)
+start_button = Button(text="Start", highlightbackground=YELLOW, command=start_countdown)
+start_button.grid(column=0, row=2)
 
-reset = Button(text="Reset", highlightbackground=YELLOW, command=reset)
-reset.grid(column=3, row=2)
+reset_button = Button(text="Reset", highlightbackground=YELLOW, command=reset)
+reset_button.grid(column=3, row=2)
 
 ticks = Label(text="", fg=GREEN, bg=YELLOW, font=(FONT_NAME, 35, "bold"))
 ticks.grid(column=1, row=3)

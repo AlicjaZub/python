@@ -34,7 +34,7 @@ def start_countdown():
   global reps
   if reps % 8 == 0:
     count_down(LONG_BREAK_MIN * 60)
-    title.config(text="Break", fg=RED)
+    title.config(text="Long break", fg=RED)
   elif reps % 2 == 0:
     # count_down(6)
     count_down(SHORT_BREAK_MIN * 60)

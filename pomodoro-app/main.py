@@ -60,8 +60,7 @@ def count_down(count):
     global timer
     timer = window.after(1000, count_down, count - 1)
   else:
-    global reps
-    global marks
+    global reps, marks
     if reps % 2 != 0:
       marks +="✓"
       ticks.config(text=marks)

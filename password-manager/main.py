@@ -2,7 +2,8 @@ from tkinter import *
 from tkinter import messagebox
 import os
 from random import choice, randint, shuffle
-# import pyperclip
+import pyperclip
+import json
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 
 def generate_passsword():
@@ -19,23 +20,56 @@ def generate_passsword():
   password.delete(0, END)
   new_password = "".join(password_list)
   password.insert(END, new_password)
-  # pyperclip.copy(new_password)
+  pyperclip.copy(new_password)
+
+# ---------------------------- SEARCH FOR DATA ------------------------------- #
+
+def search():
+  w = website.get().lower()
+  try:
+    with open(f"{os.getcwd()}/password-manager/data.json", "r") as file:
+      data = json.load(file)
+  except FileNotFoundError:
+      messagebox.showinfo(message="You don't have any passwords yet")
+  else:
+    if w == "":
+      pass
+    else:
+      try:
+        messagebox.showinfo(message=f"The details for the {w.capitalize()} website:\nEMAIL: {data[w]['email']}\n  PASSWORD: {data[w]['password']}\n")
+      except KeyError:
+        messagebox.showinfo(message=f"No data for this website stored")
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 
 def save_data():
-  w = website.get()
+  w = website.get().lower()
   e = email.get()
   p = password.get()
+  new_data = { w: {
+    "email": e,
+    "password": p,
+  }}
   
   if len(w) == 0 or len(p) == 0:
     messagebox.showinfo(title="Oops", message="Please make sure you haven't left any fields empty")
   else:
-    is_ok = messagebox.askokcancel(title=w, message=f"Details entered: \nEMAIL: {e}, \nPASSWORD: {p} \n Are these correct?")
-    if is_ok:
-      with open(f"{os.getcwd()}/password-manager/data.txt", "a") as file:
-        file.write(f"{w} | {e} | {p}\n")
-        
+    try:
+      with open(f"{os.getcwd()}/password-manager/data.json", "r") as file:
+        data = json.load(file)
+        if data[w]:
+          confirm = messagebox.askokcancel(title=w, message=f"You already have a password stored for this website - would you like to overwrite it?")
+    except FileNotFoundError:
+      with open(f"{os.getcwd()}/password-manager/data.json", "w") as file:
+        json.dump(new_data, file, indent=2)
+    else:
+      if confirm:
+        data.update(new_data)
+        with open(f"{os.getcwd()}/password-manager/data.json", "w") as file:
+          json.dump(data, file, indent=2)
+      else:
+        pass
+    finally:
       website.delete(0, END)
       password.delete(0, END)
 
@@ -44,7 +78,6 @@ def save_data():
 window = Tk()
 window.title("Password manager")
 window.config(padx=40, pady=40)
-
 
 # logo
 canvas = Canvas(height=200, width=200, highlightthickness=0)
@@ -61,8 +94,8 @@ password_label = Label(text="Password:")
 password_label.grid(column=0, row=3)
 
 # inputs
-website = Entry(width=34)
-website.grid(column=1, row=1, columnspan=2)
+website = Entry(width=18)
+website.grid(column=1, row=1)
 website.focus()
 email = Entry(width=34)
 email.grid(column=1, row=2, columnspan=2)
@@ -71,6 +104,8 @@ password = Entry(width=18)
 password.grid(column=1, row=3)
 
 # buttons
+search_button = Button(text="Search", width=12, command=search)
+search_button.grid(column=2, row=1)
 generate_passwrod_button = Button(text="Generate Password", width=12, command=generate_passsword)
 generate_passwrod_button.grid(column=2, row=3)
 add_button = Button(text="Add", width=32, command=save_data)

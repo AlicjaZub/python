@@ -1,9 +1,10 @@
 import requests
 from datetime import datetime, timedelta
 import smtplib
+import os
 
 my_email = "stocks.shares.news@gmail.com"
-password = "password"
+password = os.environ.get("PASSWORD")
 
 today = datetime.now()
 

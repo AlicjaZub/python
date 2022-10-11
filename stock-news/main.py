@@ -77,7 +77,6 @@ with smtplib.SMTP("smtp.gmail.com") as connection:
     formatted = ('\n').join(message)
     connection.starttls()
     connection.login(user=my_email, password=password)
-    # lower the security in mail settings
     connection.sendmail(from_addr=my_email, to_addrs="alicja@madebyon.com", msg=f"Subject:Shares and News\n\n{formatted}")
     connection.close()
 

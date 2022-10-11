@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 import smtplib
 
 my_email = "stocks.shares.news@gmail.com"
-password = "zatsiboysbuvjtqm"
+password = "password"
 
 today = datetime.now()
 
@@ -31,11 +31,10 @@ NEWS_API_KEY ="0e5f5b3e6f00495a85301d2e2523ca45"
 
 def calculate_variance(company_name):
     difference = closing_price_yesterday - closing_price_day_before_yesterday
-    percantage = round(closing_price_day_before_yesterday * difference/100, 2)
+    percantage = round(((difference / closing_price_day_before_yesterday) * 100), 2)
     difference = round(abs(difference), 2)
-    five_percent = closing_price_day_before_yesterday * 3/100
     
-    if five_percent < difference:
+    if abs(percantage) > 3:
         
         parameters = {
             "q": company_name,

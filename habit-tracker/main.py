@@ -28,15 +28,15 @@ graph_params = {
   "color": "kuro",
 }
 
-response = requests.put(url=NEW_GRAPH_ENDPOINT, json=graph_params, headers=headers)
+# response = requests.post(url=NEW_GRAPH_ENDPOINT, json=graph_params, headers=headers)
 
 # today = datetime(year=2020, month=2, day=23)
 today = datetime.now().strftime("%Y%m%d")
 
 pixel_params = {
   "date": today,
-  "quantity": '60',
+  "quantity": input("How many minutes of Python have you studied today? "),
 }
 
-# response = requests.post(url=GRAPH_ENDPOINT, json=pixel_params, headers=headers)
+response = requests.post(url=GRAPH_ENDPOINT, json=pixel_params, headers=headers)
 print(response.text)

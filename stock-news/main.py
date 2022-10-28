@@ -66,7 +66,6 @@ for company in companies:
     response = requests.get(url=STOCK_ENDPOINT, params=parameters)
     response.raise_for_status()
     data = response.json()
-
     closing_price_yesterday = float(data["Time Series (Daily)"][yesterday]["4. close"])
     closing_price_day_before_yesterday = float(data["Time Series (Daily)"][day_before_yesterday]["4. close"])
     
@@ -79,5 +78,4 @@ with smtplib.SMTP("smtp.gmail.com") as connection:
     connection.login(user=my_email, password=password)
     connection.sendmail(from_addr=my_email, to_addrs="alicja@madebyon.com", msg=f"Subject:Shares and News\n\n{formatted}")
     connection.close()
-
 
